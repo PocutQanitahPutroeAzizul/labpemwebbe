@@ -22,25 +22,18 @@ const {
 
 const router = express.Router();
 
-// User routes
 router.post("/login", login);
+router.post("/auth/login", login); 
 router.post("/register", addUser);
+router.post("/auth/register", addUser);
 router.get("/users", getAllUsers);
 router.get("/users/:id", getUserById);
 router.put("/users/:id", updateUser);
 router.delete("/users/:id", deleteUser);
-
-// Session routes
 router.post("/start-session", startPhotoSession);
 router.post("/end-session", endPhotoSession);
-
-// Filter routes
 router.get("/filters", getFilters);
-
-// Feedback routes
 router.post("/feedback", submitFeedback);
-
-// Photo routes
 router.post("/photos", savePhoto);
 router.get("/photos/session/:session_id", getPhotosBySession);
 router.get("/photos/user/:user_id", getUserPhotos);
