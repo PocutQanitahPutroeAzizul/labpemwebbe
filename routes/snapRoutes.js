@@ -24,11 +24,12 @@ const router = express.Router();
 
 router.post("/login", login);
 router.post("/auth/login", login); 
+
 router.post("/register", addUser);
 router.post("/auth/register", addUser);
 router.get("/users", getAllUsers);
 router.get("/users/:id", getUserById);
-router.put("/users/:id", updateUser);
+router.put("/users/:id", updateUser); 
 router.delete("/users/:id", deleteUser);
 router.post("/start-session", startPhotoSession);
 router.post("/end-session", endPhotoSession);

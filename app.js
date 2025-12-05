@@ -11,12 +11,11 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-
 app.options("*", cors());
+
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", snapRoutes);
-
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "success",
