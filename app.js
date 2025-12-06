@@ -7,8 +7,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
   "https://labpemwebbe.vercel.app", 
-  "https://labpemwebbefe.vercel.app", 
-  "https://studiosnap.vercel.app", 
+  "https://labpemwebbfe.vercel.app", 
 ];
 
 const corsOptions = {
