@@ -26,13 +26,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/api", snapRoutes);
-
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "success",
@@ -41,7 +37,7 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.use("*", (req, res) => {
+app.use((req, res) => {
   res.status(404).json({
     status: "error",
     code: 404,
