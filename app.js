@@ -6,17 +6,15 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://labpemwebbe.vercel.app", 
-  "https://labpemwebbfe.vercel.app", 
+  "https://labpemwebbe.vercel.app",
+  "https://labpemwebfe.vercel.app", 
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-
     if (allowedOrigins.indexOf(origin) === -1) {
-      const msg =
-        "The CORS policy for this site does not allow access from the specified Origin.";
+      const msg = "The CORS policy for this site does not allow access from the specified Origin.";
       return callback(new Error(msg), false);
     }
     return callback(null, true);
@@ -30,7 +28,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/api", snapRoutes);
 
 app.get("/health", (req, res) => {
@@ -41,11 +38,23 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.use((req, res) => {
+app.use((req, res, next) => {
   res.status(404).json({
     status: "error",
     code: 404,
     message: `Route ${req.originalUrl} not found`,
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(500).json({
+    status: "error",
+    code: 500,
+    message: "Internal Server Error: " + err.message,
   });
 });
 
